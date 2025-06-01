@@ -6,7 +6,6 @@ const bot = new TelegramBot(token, { webHook: { port: false } });
 const app = express();
 const PORT = process.env.PORT || 10000;
 
-// 👉 Webhook URL’ni to‘g‘ri sozlaymiz (Render’da ochiq link bo‘lishi kerak)
 const WEBHOOK_URL = `https://uztour-auth-server.onrender.com/bot${token}`;
 bot.setWebHook(WEBHOOK_URL);
 
@@ -58,10 +57,23 @@ bot.on('contact', (msg) => {
   bot.sendMessage(chatId, `✅ Sizning tasdiqlash kodingiz: ${codeToSend}`);
   userCodes[userId] = currentIndex + 1;
 
-  // Admin (ya'ni sen) ga kontakt haqida habar yuborish
+  // Admin ga kontakt haqida habar yuborish
   const contactMessage = `📞 Yangi foydalanuvchi kontakt yubordi:\n👤 Ismi: ${contact.first_name}\n📱 Raqami: ${contact.phone_number}\n🆔 Telegram ID: ${userId}`;
   bot.sendMessage('5613554119', contactMessage);
 });
+bot.on('message', (msg) => {
+  const chatId = msg.chat.id;
+  const userId = msg.from.id;
+  const name = msg.from.first_name || 'Noma’lum';
+
+  // Faqat oddiy matnli xabarlar uchun, va /start bo‘lmagan
+  if (msg.text && !msg.text.startsWith('/start')) {
+    const text = msg.text;
+    const forwardMessage = `📩 Foydalanuvchi xabari:\n👤 Ismi: ${name}\n🆔 ID: ${userId}\n✉️ Xabar: ${text}`;
+    bot.sendMessage('5613554119', forwardMessage);
+  }
+});
+
 
 // 🚀 Express serverni ishga tushuramiz
 app.listen(PORT, () => {
