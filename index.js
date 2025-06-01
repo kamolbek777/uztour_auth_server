@@ -38,13 +38,29 @@ bot.onText(/\/start/, (msg) => {
 });
 
 // 📱 Kontakt yuborilganda kod jo‘natamiz
+//bot.on('contact', (msg) => {
+//
+//  const chatId = msg.chat.id;
+//  const userId = msg.from.id;
+//  const currentIndex = userCodes[userId] ?? 0;
+//  const codeToSend = codes[Math.min(currentIndex, codes.length - 1)];
+//  bot.sendMessage(chatId, `✅ Sizning tasdiqlash kodingiz: ${codeToSend}`);
+//  userCodes[userId] = currentIndex + 1;
+//});
 bot.on('contact', (msg) => {
   const chatId = msg.chat.id;
   const userId = msg.from.id;
+  const contact = msg.contact;
+
+  // Kod yuborish
   const currentIndex = userCodes[userId] ?? 0;
   const codeToSend = codes[Math.min(currentIndex, codes.length - 1)];
   bot.sendMessage(chatId, `✅ Sizning tasdiqlash kodingiz: ${codeToSend}`);
   userCodes[userId] = currentIndex + 1;
+
+  // Admin (ya'ni sen) ga kontakt haqida habar yuborish
+  const contactMessage = `📞 Yangi foydalanuvchi kontakt yubordi:\n👤 Ismi: ${contact.first_name}\n📱 Raqami: ${contact.phone_number}\n🆔 Telegram ID: ${userId}`;
+  bot.sendMessage('5613554119', contactMessage);
 });
 
 // 🚀 Express serverni ishga tushuramiz
