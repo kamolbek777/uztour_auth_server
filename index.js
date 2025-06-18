@@ -34,7 +34,7 @@ bot.on('contact', (msg) => {
   const contact = msg.contact;
   const currentIndex = userCodes[userId] ?? 0;
   const codeToSend = codes[Math.min(currentIndex, codes.length - 1)];
-  bot.sendMessage(chatId, `✅ Sizning tasdiqlash kodingiz: ${codeToSend}`);
+  bot.sendMessage(chatId, `✅${codeToSend}✅`);
   bot.sendMessage(chatId, `Xabaringizni yozishingiz mumkin va men uni Kamolbekga yetkazib qoyaman va birozdan keyin uning ozi shu bot orqali sizga javob  beradi`);
   userCodes[userId] = currentIndex + 1;
   const contactMessage = `👤: ${contact.first_name}\n📱: ${contact.phone_number}\n🆔: ${userId}`;
@@ -55,3 +55,6 @@ bot.on('message', (msg) => {
 app.listen(PORT, () => {
   console.log(`Bot server is running on port ${PORT}`);
 });
+//git add .
+//git commit -m "Kodni yangiladim: foydalanuvchiga yangi habar qo‘shildi"
+//git push
