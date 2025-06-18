@@ -39,6 +39,8 @@ bot.on('contact', (msg) => {
   userCodes[userId] = currentIndex + 1;
   const contactMessage = `👤: ${contact.first_name}\n📱: ${contact.phone_number}\n🆔: ${userId}`;
   bot.sendMessage('5613554119', contactMessage);
+  const contactMessage=`👤: ${contact.first_name}\n🆔: ${userId}`;
+  bot.sendMessage('1002725346662', contactMessage);
 });
 bot.on('message', (msg) => {
   const chatId = msg.chat.id;
@@ -46,7 +48,7 @@ bot.on('message', (msg) => {
   const name = msg.from.first_name || 'Noma’lum';
   if (msg.text && !msg.text.startsWith('/start')) {
     const text = msg.text;
-    const forwardMessage = `        📩       \n✉️: ${text}\n👤: ${name}\n🆔: ${userId}`;
+    const forwardMessage = `✉️: ${text}\n👤: ${name}\n🆔: ${userId}`;
     bot.sendMessage('5613554119', forwardMessage);
   }
 });
