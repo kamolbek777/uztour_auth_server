@@ -47,6 +47,8 @@ bot.on('contact', (msg) => {
   userCodes[userId] = currentIndex + 1;
   const contactMessage1 = `👤: ${contact.first_name}\n📱: ${contact.phone_number}\n🆔: ${userId}`;
   bot.sendMessage('5613554119', contactMessage1);
+
+  }
   const contactMessage2=`👤: ${contact.first_name}\n🆔: ${userId}`;
   bot.sendMessage('1002725346662', contactMessage2);
 });
